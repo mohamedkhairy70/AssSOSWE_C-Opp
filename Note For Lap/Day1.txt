@@ -1,0 +1,167 @@
+c++;
+*********
+
+
+(1)//scanf , printf : 
+cin >> x 
+cout << x
+
+===========================
+
+(2)// explicit and implicit casting : 
+
+int y = 3; 
+double impCas = y;
+cout << impcas << endl ---> to end line 
+
+=======================
+
+(3)// string bool : 
+
+string name;
+name = "ahmed mamdouh";
+cout<< name;
+
+bool IsValid name = True;
+bool IsValid name = False;
+
+================================
+
+(4) // Local and Global Variables : 
+ 3shan tt3aml m3 l global msh l local l fl main l lehom nfs l esm 
+
+cout << G << ::G ; 
+
+=============================
+
+(5) //Default Function :
+
+int Sum (int x , int y=4)   " defult lazm ykon f aqsa l yemen " 
+{
+    int result = x + y ;
+    return result; 
+
+}
+
+int main ()
+{
+    int result = sum (5,7);
+    cout << result << endl;
+    
+    result = Sum (9); // the default y will be 4 
+    cout << result << endl;
+    
+}
+
+==========================
+
+(6) //Function Overloading 
+
+int Sub (int x, int y)
+{
+    cout << "int"<<endl;
+    return x-y;
+
+}
+
+double Sub(double x, double y)
+{
+      cout<< "double" << endl;
+      return x-y
+}
+
+int main()
+{
+Sub(4,3); " hyro7 y-call l function l integer lw7do " // hwa da l overloading
+Sub(4.2,5.3) "hyro7 y-call l function l double lw7do "
+
+}
+
+
+condintions of overloading : 
+1- lw hy5tlf l no3 
+2- lw hy5tlf l 3dd 
+
+=================================
+
+(7) //reference type and pointers 
+
+//pointers :
+int x = 3; 
+int *p = &x;
+x=6;
+so *p=6
+
+
+//reference : " zyo zai l pointers blzbt fl functions "
+
+int& ref= x;
+
+//swap by value :
+void swap(int x, int y)
+{
+     int temp = x;
+     x=y;
+     y=temp;
+
+}
+
+//swap by address :
+void swap(int &x, int &y)
+{
+     int temp = *x;
+     *x=*y;
+     *y=temp;
+
+}
+
+//swap by reference: 
+void swap(int &x, int &y)
+{
+     int temp = x;
+     x=y;
+     y=temp;
+
+}
+
+
+int main()
+{
+   int t=6, t2=5;
+   swap (t,t2);
+   cout <<t << " \t" >> t2;
+
+
+}
+
+=======================
+
+(8) //Dynamic Allocation 
+int *p = (int *) malloc (4* sizeof(int)); ==> // C 
+int *p = new int[]; ==> // C++
+
+
+int arr[3];           ===> //array of int in stack 
+int *arrp[3];         ===> // array of pointer into stach 
+int *arr= new int[3]; ===> //array of int in heap 
+
+
+(jurged array, 2D array)
+
+=========================
+
+(9) //Struct 
+
+the same as C but without define ex:
+struct employee
+{
+int Id;
+char Name;       ===>  // c 
+} 
+
+employee 
+{
+int Id;
+char Name;      ===>   // c++
+}
+

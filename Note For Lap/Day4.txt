@@ -1,0 +1,251 @@
+Day4:
+=====
+
+* Operator Overloading:
+=======================
+
+- we can add (+) two of any data types but we cannot add (+) two objects in one class, so we should create a function in the class to call this operator (+) 
+
+
+
+* There 3 kinds of operators : 
+==============================
+
+- unary : (++i,i++, i--,--i)
+- binary : 1- Arthimetic(+,-,*,/,%)
+           2- Relational (<,>,<=, >=, ==,!=)
+           3- Logical ( &&, ||, ! ) 
+           4- Bitwise operator ( &, |, <<, >>, ~, ^)
+           5- Assignment operator ( =, +=, -+, *=, /=, %= )  
+- Ternary: (?:)
+
+
+
+
+Ex. for binary operators:
+========================
+
+C3= C1+C2
+
+C1 ==> Caller 
++ ==> Operator sign
+C2 ==> Input
+
+[return] [operator function name] [operator function sign] (input)  
+Complex operator+(Complex C2)
+{
+  Complex res;
+  res.Real= Real + C2.Real;
+  res.Imagine= Imagine + C2.Imagine;
+  return res; 
+}   
+
+* How these methods break the OOP principles? 
+=============================================
+
+- because you can access the private data member and this breaks Encapsulation.
+
+
+
+Ex. for Unary operator:
+=======================
+
+res= ++c;  //prefix
+           ========
+Complex operator++ ()                  //My way
+{
+   this-> Real++;
+   this-> Imagine++;
+   return Complex(Real,Imagine);   
+}
+
+Complex operator++ ()                  //The way of Eng.Alaa
+{
+   this-> Real++;
+   this-> Imagine++;
+   return *this;   
+}
+
+
+res= c++;   //postfix
+            ==========
+Complex operator++ (int)                 // My Way
+{
+ this-> ++Real;
+ this-> ++Imagine;
+ return Complex(Real,Imagine);
+}
+
+Complex operator++ (int)                 // The Way of Eng.Alaa
+{
+ Complex temp = *this;
+ this-> ++Real;
+ this-> ++Imagine;
+ return temp;
+}
+
+
+*  operator of Casting : from object to integer for example
+
+int x = c 
+
+operator int ()
+{
+  return Real;
+}
+
+
+* Operator of Relational :
+==========================
+
+if (c > res)
+ cout << "true";
+else 
+ cout << "false";
+
+
+bool operator > (complex c)
+{
+  return Real > c.Real && Imagine > c.Imagine;
+}
+
+- All of Relational operator doing like this except ( = ) --> bitwise copy  and shallow copy 
+byn2ol l value zai ma hya whatever its type.
+
+- deep copy : making a new object but separated, any changing in (res) doesn't effect on (c).
+
+
+res = c; // without implementation it will make a bitwise copy, but if you need 
+            a deep copy you need to make implementation.
+
+//in public attribute in the Class 
+int *arr;     
+       
+//Changing the constructor of using 2 parameters:
+Complex (int _Real, int _Imagine)
+{
+  arr = &x;
+  if (_Real > 0)
+   Real = _Real;
+  else 
+   Real = 1;
+}
+
+//Function in the Class:
+Complex operator= (Complex c)
+{
+  Real = c.Real;
+  Imagine = c.Imagine;
+  arr = new int[2]; 
+  for (int i=0; i<2;i++)
+  {
+      arr[i]= c.arr[i];
+  }
+}
+
+
+--//in Main:
+
+c.arr[0]=4;
+c.arr[1]=6;
+res = c;            //res.operator=(c)
+res.arr[0]=9;
+cout<< c.arr[0];
+
+ 
+
+
+** 
+res = 3 + c   
+
+
+--before the main (StandAlone Function)
+
+ Complex operator+(int x, Complex c)
+{
+  Complex res; 
+   res.Real =c.Real + x;   //res.setreal (this->Real + v.getreal() 
+   res.Imagine = c.Imagine +x;
+   return res;
+}
+ 
+-- In your Class.h (friend Function) 
+
+friend Complex operator+ (int x, Complex c);
+
+
+
+
+** friend function the second thing breaks Encapsulation.
+** Stand Alone Function breaks Abstraction. 
+
+* 
+
+cin >> c;   //cin.operator>>(c)   // istream
+cout << c;  // ostram    
+
+
+(StandAlone):
+=============
+ostream& operator<< (ostream& output, Complex& c)
+{
+  output << c.Real << "+" << c.Imagine << "i" <<endl;
+  return output;
+}
+
+
+istream& operator>> (istream& input, Complex& c)
+{
+  input >> c.Real >> c.Imagine;
+  return input;
+}
+
+
+**then,
+
+(Friend on Class )
+===================
+friend ostream& operator<< (ostream& output, Complex& c);
+friend istream& operator>> (istream& input, Complex& c);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//operator (=) using deep copy
+    f1.arr[0]=5;
+    f1.arr[1]=6;
+    res = f1;       //res.operator=(f1);
+    res.arr[0]=10;
+    cout<< res.arr[0]<<res.arr[1]<<endl;
+
+
+
+      Fraction operator= (Fraction f2)
+      {
+          Num = f2.Num;
+          Den = f2.Den;
+          arr = new int [2];
+          for (int i=0; i<2; i++)
+          {
+              this->arr[i]=f2.arr[i];
+          }
+      }
+
+
+

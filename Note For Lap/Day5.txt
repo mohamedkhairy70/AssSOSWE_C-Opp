@@ -1,0 +1,248 @@
+Day5:
+=====
+- Revision on operator overloading.
+
+- arr: there are two ways of logic first one dependent and second is independent 
+======    
+main : 
+arr = &int temp;  // int temp dependance on arr if it deleted  
+private : 
+
+arr[3];
+
+public : 
+void setarr (int value)
+{
+   arr[index++]=value 
+}
+
+int getarr (int index)
+{
+  return arr[index];
+}
+
+OR;
+
+
+void setarr(int* _arr)  
+{
+  arr =_arr;
+  arr = new _arr[2];
+  for (int i=0; i<2; i++)
+  {
+      arr[i]=c.arr[i];
+  }
+}
+========================================
+problem 1:
+==========
+** when you create an object of a class, this class has: arr[] , and other datatypes, So
+When you end this object it will free the space of datatypes but ( arr[]) won't delete, 
+so we will solve this problem by using destruction to Deallocate the memory and delete arr[];
+EX:
+===
+
+public:
+int *arr;   //hna fl public bs 3shan m3odsh a3ml set w get functions w kda bs
+Complex()   //default Constructor:
+{
+  arr = new int[2];
+  Real = Imagine = 0;
+}
+
+void test()  
+{
+  Complex r;
+}
+
+
+~Complex() //Destructor:
+{
+  delete arr;
+}
+=====================================
+
+problem 2:
+==========
+    // this is pass by value 
+             ^ 
+             |
+void abc (Complex c)
+{
+   c.arr[0]=10;
+}
+
+
+Complex co;    // I created a copy of the class so if i changed arr[0]=5 it should
+                  change the arr[0] of the copy not the origin class itself
+                  but here this will not happen and compile will ignore that.
+
+co.arr[0]=5;  //the compile will ignore this line bc its pass by value you cannot                  change the (Complex c).
+abc(co);
+cout<< co.arr[0];    // when you check out you'll find arr[0]=10 not 5
+
+output is  10.
+
+                 ***** SO HOW TO SOLVE IT ? WE WILL SEE ********
+problem 3: 
+========== 
+** The Same Example but if we have a destructor(delete the arr),
+** The destructor will delete the arr of the class (the origin) itself, because  
+   the arr[] just created pointer on the arr[] of the class.
+
+                    ********* THIS IS THE PROBLEM ************
+
+Complex abc (Complex c)
+{
+ c.arr[0]=10;              //first condition ** object by value **
+ return c;                // second condition ** object by value return **object
+}
+
+Complex co;
+
+Complex t = co;  // create (t) b dlalt (co) this will call copy constructor                        //Third condition
+
+
+Complex t;         // create t firstly then put the value of (t) bdlalt (co)    
+t = co; 
+
+
+** SO THIS HOW WE WILL SOLVE PROBLEM 2 AND 3 TOGETHER:
+ ((by make it create a new deep copy of  arr[] for every object I creat))
+                                 &&
+ (( And when the destructor delete arr[], it'll delete arr[] of object not Class)) 
+
+
+
+Complex (Complex& c)     // without (&) it will cause a stack over flaw 
+{                           bc it will loop of passing value of Complex C again 
+  Real = c.Real;            again.
+  Imagine = c.Imagine;
+  arr = new int [2];
+  for (int i=0; i<2; i++)
+  {
+      arr[i]=c.arr[i];
+  }
+}
+
+** after doing this you will make a deep copy not a bitwise copy and your issue    will be solved , so the output will change to 5 as you did. (//not 10).
+
+
+===========================================================================
+
+Day5.2:                 **** PART TWO AFTER BREAK *******
+=======
+
+
+** Static Function: - Function calling by the Class not Calling by the Object. 
+=================== - To Call it in the main:
+                         
+- [Name of Class][Scope Modifier (::)][Name of Function] (object1, object2); 
+
+     Complex            ::                  add                 (c1,c3);
+
+- Complex::add(c1,c3);
+
+ Complex c1 (3,5), c3 (6,7);
+ Complex res;
+ Complex res = Complex::add(c1,c3);
+ res.display();
+ 
+
+
+** Static Variable(Data Member):
+             - Creates only in the first object created 
+             - After every object we created the Static Counter in the                            Class  will be incremented. ( Counter++ )
+             - Initialize static variable bra l class asln.
+             - Every Constructor you will put Counter++ to count the object                     - In Destructor you should do ( Counter-- ).
+             - Note: Static Methods can only use Static Variable(data member).
+             =======  No ( this-> Real ) bc we already use Static method using  
+                      the Class itself not the object.
+             - Note: Non-Static Methods can use any Static Data Member or Methods.
+             ======= 
+private: 
+
+static int Counter;
+
+public:
+
+Complex()                  //Constructor: "default or any construcor"
+{
+ Counter++;   
+}
+
+
+Complex (Complex& c)       // Sec Constructor Copy
+      {
+          counter++;
+          Real = c.Real;
+          Imagine = c.Imagine;
+          arr = new int [2];
+          for(int i =0 ; i<2;i++)
+          {
+              arr[i]=c.arr[i];
+          }
+      }
+
+
+static void setCounter(int _Counter)
+{
+  counter = _Counter;
+}
+
+static int getCounter()
+{
+   return Counter;
+}
+
+~Complex()
+{
+  Counter--;          //Destructor to decrement Counter of temporary objects.
+}
+
+int Complex::counter = 0;  //Intializing Counter in the Class.cpp
+
+
+
+** In Main:
+=========== 
+Complex c1(3,5), c3(6,7);
+Complex res;
+res = Complex::add(c1,c3);
+cout<< Complex::GetCounter();
+res.Display()
+
+
+
+=================
+
+Notes: 
+=======
+
+
+Complex C; 
+
+Complex *C1;
+
+
+Complex *c1 = new Complex()
+c1-> Real;                          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

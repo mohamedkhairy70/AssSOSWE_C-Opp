@@ -1,0 +1,257 @@
+Day7:
+=====
+
+* Review of Relations and Especially Inheritance.  
+
+* Protectd Access Modifier : 
+  As Class base : I can access 
+  As Class derived : I can access.
+  As object of base : I cannot acess.
+  As object of derived : I cannot access.  
+
+
+** Private Access Modifier : 
+  As Class base : I cannot access 
+  As Class derived : I cannot access.
+  As object of base : I cannot acess.
+  As object of derived : I cannot access.  
+
+*** Public Access Modifier : 
+  As Class base : I can access 
+  As Class derived : I can access.
+  As object of base : I can acess.
+  As object of derived : I can access.
+
+=======
+* Constructor overloading in the derived class using the constructor of base class. 
+class creature
+{
+ protected 
+ creature(int _Age, int _weight)
+ {
+   age = _Age;
+   weight = _weight;
+ }
+};
+
+class human
+{
+ private:
+ int height;
+ public:
+ human(int _Age, int _weight, int _height)
+:creature (_age, _weight) // the value of base constructor
+  {
+     height = _height;
+  }
+};
+
+==============
+** hiding : 
+
+class creature
+{
+ protected:
+  int age, weight;
+ public: 
+ creature(int _Age, int _weight)
+ {
+   age = _Age;
+   weight = _weight;
+ }
+ void move()
+ {
+   cout<<"Human is moving"<<endl;
+ }
+
+};
+
+class human
+{
+ private:
+ int height;
+ public:
+ human(int _Age, int _weight, int _height)
+:creature (_age, _weight) // the value of base constructor
+  {
+     height = _height;
+  }
+
+ void move(int x)        // this is overloading of function
+ {                          will hide the same function of base class
+   cout<<"Human is moving"<<endl;
+ }
+
+ void move()             // this is hiding of function will hide 
+ {                          the same function of base class
+   cout<<"Human is moving"<<endl;
+ } 
+
+   // to let the compiler not hide the same function of base class
+       you will do this 
+  
+ void move()   //hiding
+ {
+   creature::move();   // telling the compiler don't hide this base function.
+   cout<<"Human is moving"<<endl;
+ }  
+};
+
+===================
+***
+
+class creature
+{
+ protected 
+ creature(int _Age, int _weight)
+ {
+   age = _Age;
+   weight = _weight;
+ }
+};
+
+class human
+{
+ private:
+ int height;
+ public:
+ human(int _Age, int _weight, int _height)
+:creature (_age, _weight) // the value of base constructor
+  {
+     height = _height;
+  }
+};
+
+class animal 
+{
+ void fun()
+ {
+ 
+ } 
+
+}
+
+
+--- here 
+
+
+
+=====
+
+* pointers: 
+
+- if i made a pointer of base class look at an object of derived class 
+  the pointer will only interact with members in the class of base class not derived class.
+
+- if i made a pointer of derived class look at an object of derived class 
+  the pointer will interact with members in the class of base class and derived class.
+
+** you cannot make a pointer of derived class to look at base class.
+==
+
+
+
+*** Polymorphism:   - this the last principle of OOP
+                    - Poly = many,   Morph = definiton
+                    - it means you can call one child class by many ways:
+                        * calling it by a pointer of parent class. 
+                        * calling it by a pointer of child class.
+                    - How to make it this pointer calling an attributes or methods : 
+                      by virtual : 
+
+classChild* ptr= new classChild obj;   //creating a pointer of classChild
+                                          and make it looks at the classChild //
+
+==> when now i call function by ptr it will act normal and goes to the function of classChild 
+    and this what i already want so there is no problem here in this situation.
+
+
+                  
+classParent* ptr= new classChild obj;   //creating a pointer of classParent 
+                                          and make it looks at the classParent inside classChild//
+
+==> when now i call function by ptr it will call the function of classParent inside classChild
+    but this is not i want i need it to call the function inside classChild so i will write -virtual- 
+    word before the function implementation in the classParent.
+
+(1) If the function implemntation int the classParent is not virtual : 
+  When I call this function using the pointer of classParent 
+  it will call this function inside the classParent and will not
+  call the same function of inside classChild. 
+
+ptr-> function(); 
+
+==> Output will be : The return of function of classParent.
+
+
+(2) If the function implementation is a virtual : 
+ 
+ptr-> function();
+
+==> Output will be : The return of function of classChild. 
+     And this is what I want. 
+
+
+
+*******************************
+
+Multiple child classes:
+======================
+
+- Creature is ParentClass of Animal 
+- Animal is ParentClass of Cat 
+so 
+Cat is a ChildClass of two classes (Animal and Creature)
+
+**** Without using pointer it will use Hiding to call functions and its totally normal.So:
+
+-If i called the function that i has 3 same functions of it in my 3 classes, when i call this function by an object it will call the function of an object i called from.
+
+******* With using pointer it will divides into 2 ways: 1- not using virtual 
+                                                        2- using virtual
+
+creature* ptrAnimal = new cat();
+
+1- Not Using Virtual : 
+
+ptr-> function();
+
+==> Output will be : The return of function of ClassParent "Creature"
+
+
+2- Using Virtual : 
+
+ptr-> function(); 
+
+==> Output will be: The return of function of ClassCild "Cat"
+
+
+************************************************
+
+- Avoiding repeating: ptr-> function(); i should make Function standAlone contains some methods 
+  in the class. 
+- This function MoveCreature.
+
+ void MoveCreature(cr* creature)        //StandAlone function above the main:
+ {
+      ptr-> &movecreature;                // need Editing 
+ }
+
+creature* ptrAnimal = new cat();    //in the main  
+MoveCreature(*creature);        //the output is return " Creature is moving " 
+MoveCreature(*animal);         //the output is return " Animal is moving " 
+MoveCreature(*cat);          //the output is return " Cat is moving " 
+  
+==================
+
+- So what if i want this MoveCreature Function above the paramater 
+  is not pointer of classParent "creature" but Array of pointers of classParent " creature[]"
+
+
+
+
+
+
+    
+
+ 

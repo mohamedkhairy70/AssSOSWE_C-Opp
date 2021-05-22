@@ -1,0 +1,17 @@
+Day3/Notes:
+===========
+- Complex Numbers Example.
+- It happens virtually without writing it " this -> variable ".
+- What is the important of adding " this -> ".
+- " this " in parameter refer to the object not variable.
+
+- Constructor :
+===============
+ just a function calling automatically when you create an object from class, has the same name as the class, doesn't return anything and no void.
+- Destructor : 
+==============
+just  a function calling automatically when the object is about to end, the name of destructor is ~nameofclass, doesn't return anything and no void. 
+
+
+- Operator overloading:
+=======================

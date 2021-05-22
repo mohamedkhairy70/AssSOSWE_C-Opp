@@ -1,0 +1,167 @@
+Day6:
+=====
+* Revision of pointers.
+
+** Relations Between Classes:
+
+*** we have 4 relations between :: 
+
+1- Assosiation ( using relation ) 
+==================================
+
+- An Object of Class A partly use an object of Class B. 
+- Dependency : - Lifetime of object ( When(A)dies it doesn't means (B) will die ) 
+               - Object pointer. (We can pass pointer or reference or object)
+
+Class Student 
+{
+   void Exam(e)
+   {
+   
+   }
+
+} 
+
+Class Exam 
+{
+
+}
+                    ************************************************** 
+
+2- Composition ( Contain relation )
+===================================
+
+- Class A contain Class B.  Ex: A Room Contain Walls.
+- Dependency : - Lifetime of object ( when (A) dies, (B) will die together)
+               - Must pass with object not by pointer.
+
+Class Room
+{
+  Wall w[4];       /* array of 4 walls' Object will die when Room object dies.
+                       and we must pass this wall object by object not pointer 
+                        bc if we passed it with pointer when the room dies 
+                         the 4 walls will not die.  */ 
+
+Room (wall _w)               // Constructor pass by object
+{
+  w = _w;
+}
+
+ void setWall(_w)
+ {
+    w = _w;
+ }
+
+ Wall getWall()
+ {
+    return w;
+ }
+}
+
+Class Wall 
+{
+
+} 
+
+                    **************************************************** 
+
+3- Aggregation (Owe Relation)  
+=============================
+
+- Class A Has Class B.
+- Dependency :  -Lifetime of object when (B) dies, it doesn't means Class A dies.
+                -Must pass by pointers so when Class (B) deletes will only delete                          it not Class (A).
+
+Class Room 
+{
+ chair* ch; //chair* c[2];
+ Room(chair* _c)            //Constructor pass by pointer
+ {
+   ch = _c;  
+ }
+
+ void setChair(chair* _c)
+ {
+    c = _c;
+ }
+ void setChair(chair& _c)
+ {
+    c = & _c;
+ }
+ chair getchair()
+ {
+    return = c;   
+ }
+}
+
+Class chair
+{
+
+}
+                    *********************************************************
+
+4- Inheritance: ( Is Relation ) 
+- Class A is a base CLass(parent) of Class B (child)
+- Dependancy: 
+               - lifetime 
+               -  
+
+
+class Parent
+{
+ public:
+    int x;
+
+};
+
+class Parent : Parent
+{
+    // without writting anything we have int x;
+}
+
+
+**Access Modifier : 
+===================
+
+
+1- Public -> can access it with the child class/object or parent class/object.
+2- Private -> Cannot acces it with the child class/object  or parent class/object.
+3- Protected -> Can access it only with the child class but cannot with the object of                     parent/child.
+
+
+**Hiding: 
+=========
+- Hide the function of parent and do with the child function  
+
+Class Parent
+{
+ void abc()
+ {
+  cout<<"Parent";
+ }
+}
+
+Class child 
+{
+void abc ()          //hiding
+ {
+  Parent::abc();        // Reusability 
+  cout<< "child";
+
+ }
+
+void abc (int x)          //overloading of hiding 
+ {
+  Parent::abc();        // Reusability 
+  cout<< "child";
+ }
+}
+
+
+
+** Constructor in Child class:
+==============================
+
+- The child will excute the constructor of parent first then the constructor of child.
+
+
