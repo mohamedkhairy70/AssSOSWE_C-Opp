@@ -11,5 +11,5 @@ public:
 
 	double getDiameter();
 
-	virtual double calcarea();
+	virtual double calcarea() = 0;
 };

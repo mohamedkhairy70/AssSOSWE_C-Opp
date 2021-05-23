@@ -3,47 +3,30 @@
 
 #include <iostream>
 
-
-
 struct Point {
     int x = 0;
     int y = 0;
+    Point operator+ (Point c)
+    {
+        x += c.x;
+        y += c.y;
+        return *this;
+    }
 };
-int Sum(int x, int y) {
-    return x + y;
-}
-double Sum(double x, double y) {
+
+template<typename T>
+T Sum(T x, T y) {
     return x + y;
 }
 
-Point Sum(Point x, Point y) {
-    Point _Point;
-    _Point.x = x.x + y.x;
-    _Point.y = x.y + y.y;
-    return _Point;
-}
 
 int main()
 {
-    int x, y;
-    double m, b;
-    std::cout << "Pleasee Enter Number int :\n";
-    std::cin >> x;
 
-    std::cout << "Pleasee Enter Number int :\n";
-    std::cin >> y;
+    std::cout << "Sum int : " << Sum(5, 4) << ":\n";
 
 
-    std::cout << "Sum int : " << Sum(x, y) << ":\n";
-
-
-    std::cout << "Pleasee Enter Number Double :\n";
-    std::cin >> m;
-
-    std::cout << "Pleasee Enter Number Double :\n";
-    std::cin >> b;
-
-    std::cout << "Sum int : " << Sum(m, b) << ":\n";
+    std::cout << "Sum int : " << Sum(5.5, 4.5) << ":\n";
 
 
     Point _P;
@@ -51,7 +34,7 @@ int main()
     Point _P2;
     _P2.x = 4; _P.y = 4;
     Point Result = Sum(_P, _P2);
-    std::cout << "X Of Point : " << Result.x << ":\n" << "Y Of Point" << Result.y << ":\n";
+    std::cout << "X Of Point : " << Result.x << "\n" << "Y Of Point : " << Result.y << "\n";
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu

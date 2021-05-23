@@ -17,9 +17,9 @@ double shape::getDiameter()
 	
 }
 
-double shape::calcarea()
-{
-
-	return 0.0;
-
-}
+//double shape::calcarea()
+//{
+//
+//	return 0.0;
+//
+//}
